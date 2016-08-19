@@ -1,0 +1,37 @@
+{
+  "name": "webgpio",
+  "description": "WebGPIO and WebI2C API polyfill",
+  "authors": [
+    "club-wot"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "CHIRIMEN",
+    "webgpio",
+    "webi2c"
+  ],
+  "homepage": "https://github.com/club-wot/WebGPIO",
+  "moduleType": [],
+  "main": [
+    "dist/webgpio.min.js",
+    "dist/webi2c.min.js"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "gulp",
+    "karma",
+    "src",
+    "gulpfile.babel.js"
+  ],
+  "version": "0.3.0",
+  "_release": "0.3.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "0.3.0",
+    "commit": "913f9c6b994c9562538aa6dfde43535523f1828c"
+  },
+  "_source": "https://github.com/club-wot/WebGPIO.git",
+  "_target": "^0.3.0",
+  "_originalSource": "webgpio-polyfill"
+}

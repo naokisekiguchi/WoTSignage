@@ -1,0 +1,13 @@
+{
+  "name": "WoT Signage",
+  "description": "Wot Signage",
+  "type": "certified",
+  "launch_path": "/index.html",
+  "developer": {
+    "name": "CHIRIMEN Open Hardware project",
+    "url": "https://github.com/chirimen-oh/WoTSignage"
+  },
+  "icons": {
+    "128": "/image/sensor.png"
+  }
+}
