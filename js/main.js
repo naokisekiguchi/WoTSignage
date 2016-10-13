@@ -5,6 +5,29 @@ document.addEventListener("DOMContentLoaded", () => {
   // task.js の spawn 関数内では Promise が同期的に記述できる
   spawn(function() {
     // WebI2C API https://github.com/browserobo/WebI2C
+    
+
+    // GPIO へのアクセサを取得
+    const gpioAccessor = yield navigator.requestGPIOAccess();
+    const ledPort = gpioAccessor.ports.get(198);
+    yield ledPort.export("out");
+    var ledValue = 0;
+
+    document.getElementById("btn").addEventListener("click", () => {
+      ledValue = ledValue ? 0 : 1;
+      ledPort.write(ledValue);
+    });
+/*
+    const btnPort = gpioAccessor.ports.get(199);
+    yield btnPort.export("in");
+
+    btnPort.onchange = (btnValue) => {
+      console.log(btnValue);
+      //ledPort.write(btnValue);
+
+    };
+*/
+
     // I2C へのアクセサを取得
     const accessor = yield navigator.requestI2CAccess();
     // I2C 0 ポートを使うので、0 を指定してポートを取得
@@ -13,6 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const slave = yield port.open(0x70);
     // ループ
     for (;;) {
+      
       // ここからは各 I2C デバイスによって制御方法が異なる
       // SRF02 では以下のようにして距離を取得
       yield slave.write8(0x00, 0x00);
