@@ -7,6 +7,9 @@
     "name": "CHIRIMEN Open Hardware project",
     "url": "https://github.com/chirimen-oh/WoTSignage"
   },
+  "permissions": {
+    "systemXHR": {}
+  },
   "icons": {
     "128": "/image/sensor.png"
   }

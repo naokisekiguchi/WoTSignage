@@ -4,27 +4,30 @@
         <meta charset="UTF-8" />
         <title>WoT Signage</title>
         <link type="text/css" rel="stylesheet" href="style/main.css" />
+        <link rel="stylesheet" href="https://en.wikipedia.org/w/load.php?modules=mediawiki.legacy.commonPrint,shared|mediawiki.skinning.elements|mediawiki.skinning.content|mediawiki.skinning.interface|skins.vector.styles|site|mediawiki.skinning.content.parsoid|ext.cite.style&amp;only=styles&amp;skin=vector"/>
         <!--
         <script src="bower_components/webgpio/dist/webgpio.js"></script>
         -->
-        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <script src="js/webgpioi2c.js"></script>
         <script src="js/task.js"></script>
         <script src="js/main.js" type="application/javascript;version=1.7">
         </script>
     </head>
     <body>
-        <div>
-            <button id="btn">web button</button>
-        </div> 
-        <div id="headline">
-            CHIRIMEN とは
-            <img src="image/chirimen.gif">
+        <div id="wrapper">
+            
+            <div id="contents">
+                <div id="headline">
+                    <a href="#detail">CHIRIMEN とは</a>
+                    <img src="image/chirimen.gif">
+                </div>
+                <div id="detail">
+                    <div class="title">CHIRIMEN とは</div>
+                    <div class="content">ウェブデベロッパのための WoT デバイス開発環境です。センサやアクチュエータも全てウェブ技術で制御でき、ウェブページを作るようにWoT デバイスアプリケーションの開発が可能となります。開発環境は OS として B2G を搭載したシングルボードコンピュータで、GPIO、I2C、UART、SPI ポートに加えて USB および HDMI 互換のポートを装備します。ウェブページ内の navigator にローレベルハードウェア API を施し、ウェブ画面とセンサやアクチュエータが絡みあった新しい考えのデバイスを開発可能とします。</div>
+                </div>
+            </div>
+            <div id="distance"></div>
         </div>
-        <div id="detail">
-            <div class="title">CHIRIMEN とは</div>
-            <div class="content">ウェブデベロッパのための WoT デバイス開発環境です。センサやアクチュエータも全てウェブ技術で制御でき、ウェブページを作るようにWoT デバイスアプリケーションの開発が可能となります。開発環境は OS として B2G を搭載したシングルボードコンピュータで、GPIO、I2C、UART、SPI ポートに加えて USB および HDMI 互換のポートを装備します。ウェブページ内の navigator にローレベルハードウェア API を施し、ウェブ画面とセンサやアクチュエータが絡みあった新しい考えのデバイスを開発可能とします。</div>
-        </div>
-        <div id="distance"></div>
     </body>
 </html>
