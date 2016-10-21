@@ -110,7 +110,7 @@ function getRandomWiki(){
   $.ajax({
     type: "get",
     dataType: "jsonp",
-    url: "http://ja.wikipedia.org/w/api.php?action=query&list=random&rnnamespace=0&rnlimit=1&format=json",
+    url: "https://ja.wikipedia.org/w/api.php?action=query&list=random&rnnamespace=0&rnlimit=1&format=json",
     //記事タイトルの取得が成功した時の処理
     success: function(json) {
       //取得したjsonデータ中の記事タイトルを抽出   
