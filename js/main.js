@@ -1,6 +1,8 @@
 //Lチカ用にLEDポートとLEDの値のためのグローバル変数を定義
 var ledPort;
 var ledValue=0;
+//タクトスイッチ用にbtnポートのためのグローバル変数を定義  
+var btnPort;
 
 // task.js ライブラリ
 const { spawn, sleep } = task;
@@ -15,6 +17,26 @@ document.addEventListener("DOMContentLoaded", () => {
     ledPort = gpioAccessor.ports.get(198);
     //ledPortを出力として利用する
     yield ledPort.export("out");
+
+    //GPIO199(CHIRIMEN CN1-10)をタクトスイッチ用のGPIOポート  
+    btnPort = gpioAccessor.ports.get(199);
+    //btnPortを入力として利用する
+    yield btnPort.export("in");
+
+    //元々のdetailの中身を変数に入れておく
+    var originalContents = document.getElementById("detail").innerHTML;
+    //btnPortの値に変化があった時(タクトスイッチが押された時)の処理を規定
+    btnPort.onchange = function(btnValue){
+      //タクトスイッチが押し込まれている時(GPIOの値が0の時)の処理 
+      if(!btnValue){
+        //id=detailのdivタグの中身を書き換える
+        document.getElementById("detail").innerHTML = "ちりめん（縮緬、クレープ織り、仏: crêpe）は、絹を平織りにして作った織物。 from Wiki";
+      }else{
+        //タクトスイッチを離した時、元々のdetailの中身に戻す  
+        document.getElementById("detail").innerHTML = originalContents;
+      }
+      //getRandomWiki();
+    };
 
     //リンクをクリックした時のイベントを設定する関数
     addEventLink();
