@@ -108,7 +108,7 @@ function scroll(val){
   //スクロールする位置を決定する   
   var sx = ch * (1 - (val - minVal)/(maxVal - minVal));
   //指定の位置にスクロールさせる    
-  window.scrollTo(0,sx);
+  $('html,body').animate({scrollTop: sx}, 500, 'swing');
 }
 
 
