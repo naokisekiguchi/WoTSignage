@@ -23,19 +23,13 @@ document.addEventListener("DOMContentLoaded", () => {
     //btnPortを入力として利用する
     yield btnPort.export("in");
 
-    //元々のdetailの中身を変数に入れておく
-    var originalContents = document.getElementById("detail").innerHTML;
     //btnPortの値に変化があった時(タクトスイッチが押された時)の処理を規定
     btnPort.onchange = function(btnValue){
       //タクトスイッチが押し込まれている時(GPIOの値が0の時)の処理 
       if(!btnValue){
-        //id=detailのdivタグの中身を書き換える
-        document.getElementById("detail").innerHTML = "ちりめん（縮緬、クレープ織り、仏: crêpe）は、絹を平織りにして作った織物。 from Wiki";
-      }else{
-        //タクトスイッチを離した時、元々のdetailの中身に戻す  
-        document.getElementById("detail").innerHTML = originalContents;
+        //wikipediaの記事をランダムで表示する
+        getRandomWiki();
       }
-      //getRandomWiki();
     };
 
     //リンクをクリックした時のイベントを設定する関数
@@ -111,6 +105,46 @@ function scroll(val){
   $('html,body').animate({scrollTop: sx}, 500, 'swing');
 }
 
+function getRandomWiki(){
+  //jqueryの関数を利用して、JSONPでwikipediaの記事タイトルをランダムで取得する。
+  $.ajax({
+    type: "get",
+    dataType: "jsonp",
+    url: "http://ja.wikipedia.org/w/api.php?action=query&list=random&rnnamespace=0&rnlimit=1&format=json",
+    //記事タイトルの取得が成功した時の処理
+    success: function(json) {
+      //取得したjsonデータ中の記事タイトルを抽出   
+      var title = json.query.random[0].title;
+      //抽出した記事タイトルの中身を取得すr関数
+      getWiki(title);
+    }
+  });
+}
+function getWiki(query){
+  //引数(query)に指定された記事の中身をhtml形式で取得
+  $.ajax({
+    type: "get",
+    dataType: "jsonp",
+    url: "https://ja.wikipedia.org/w/api.php?action=query&format=json&prop=revisions&titles="+query+"&rvprop=content&rvparse",
+    //記事の中身の取得が成功した時の処理(記事の中身を画面に反映するための関数を呼び出す)
+    success: parseWiki
+  });
+}
+function parseWiki(json){
+  //記事の中身を抽出
+  var html;
+  for(i in json.query.pages){
+    html = json.query.pages[i].revisions[0]["*"];
+  }
+  //抽出した記事の内容でid=contentsの要素の中身を書き換える
+  document.getElementById("contents").innerHTML = html;
+  //記事中のリンク(aタグ)をクリックした時のイベントを設定
+  addEventLink();
+  //記事中のリンクのリンク先をcontentsのトップに設定
+  Array.from(document.querySelectorAll("a"),  (e) => {
+    e.href = "#contents";
+  });
+}
 
 /*
 function parseWiki(json){
