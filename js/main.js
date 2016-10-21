@@ -1,5 +1,6 @@
 var ledPort;
-var btnPort
+var btnPort;
+var ledValue = 0;
 
 // task.js ライブラリ
 const { spawn, sleep } = task;
@@ -10,8 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
   spawn(function() {
     // WebI2C API https://github.com/browserobo/WebI2C
 
-    var ledValue = 0;
-    
+    /*
     // GPIO へのアクセサを取得
     const gpioAccessor = yield navigator.requestGPIOAccess();
     ledPort = gpioAccessor.ports.get(198);
@@ -25,7 +25,9 @@ document.addEventListener("DOMContentLoaded", () => {
       console.log("onchange");
       getRandomWiki();
     };
+    */
     
+    /*
     // I2C へのアクセサを取得
     const accessor = yield navigator.requestI2CAccess();
     // I2C 0 ポートを使うので、0 を指定してポートを取得
@@ -56,9 +58,10 @@ document.addEventListener("DOMContentLoaded", () => {
       // 次のセンシングまで 1000ms 待つ
       yield sleep(1000);
     }
+    */
   });
 });
-
+/*
 function parseWiki(json){
   console.log("parseWiki");
   var html;
@@ -107,7 +110,8 @@ function addEventLink(){
     });
   });
 }
-
+*/
+/*
 function scroll(val){
   var ch = document.body.scrollHeight;
   console.log("ch=",ch);
@@ -125,3 +129,4 @@ function scroll(val){
   //not jquery
   //window.scrollTo(0,sx);
 }
+*/

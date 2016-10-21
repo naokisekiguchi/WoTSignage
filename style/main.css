@@ -29,6 +29,9 @@ html,body{
   font-size: 3em;
 }
 
+#chirimen{
+  width: 300px;
+}
 #detail .content {
   margin-top: 1em;
   font-size: 2em;
