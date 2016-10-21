@@ -40,6 +40,37 @@ document.addEventListener("DOMContentLoaded", () => {
 
     //リンクをクリックした時のイベントを設定する関数
     addEventLink();
+
+    // I2C へのアクセサを取得
+    const accessor = yield navigator.requestI2CAccess();
+    // I2C 0 ポートを使うので、0 を指定してポートを取得
+    const port = accessor.ports.get(0);
+    // SRF02 超音波センサの初期アドレス 0x70 を指定して slave オブジェクトを取得
+    const slave = yield port.open(0x70);
+    //ループ
+    for (;;) {
+      // ここからは各 I2C デバイスによって制御方法が異なる
+      // SRF02 では以下のようにして距離を取得
+      yield slave.write8(0x00, 0x00);
+      yield sleep(1);
+      slave.write8(0x00, 0x51);
+      yield sleep(70);
+      const highBit = yield slave.read8(0x02, true);
+      const lowBit = yield slave.read8(0x03, true);
+      // 距離
+      const distance = (highBit << 8) + lowBit;
+
+      // 確認用に console.log に表示
+      console.log(distance);
+      // HTML 画面に距離を表示
+      document.querySelector("#distance").textContent = distance;
+      
+      // 距離センサの値によって画面をスクロールさせる関数
+      scroll(distance);
+
+      // 次のセンシングまで 1000ms 待つ
+      yield sleep(1000);
+    }
   });
 
 });
@@ -58,6 +89,26 @@ function addEventLink(){
       },1000);
     });
   });
+}
+
+function scroll(val){
+  //ドキュメントの高さを取得
+  var ch = document.body.scrollHeight;
+  //距離センサの値の扱う範囲を15から50の間とする
+  const minVal = 15;
+  const maxVal = 50;
+  //距離センサの値が50より大きい時、何もしない
+  if(val > maxVal){
+    return;
+  }
+  //距離センサが15より小さいときは、minValの値で固定する
+  if(val < minVal){
+    val = minVal;
+  }
+  //スクロールする位置を決定する   
+  var sx = ch * (1 - (val - minVal)/(maxVal - minVal));
+  //指定の位置にスクロールさせる    
+  window.scrollTo(0,sx);
 }
 
 
