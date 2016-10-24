@@ -1,6 +1,5 @@
-//Lチカ用にLEDポートとLEDの値のためのグローバル変数を定義
+//Lチカ用にLEDポートのためのグローバル変数を定義
 var ledPort;
-var ledValue=0;
 
 // task.js ライブラリ
 const { spawn, sleep } = task;
