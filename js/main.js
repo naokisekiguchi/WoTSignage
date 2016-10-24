@@ -1,8 +1,5 @@
-//Lチカ用にLEDポートとLEDの値のためのグローバル変数を定義
+//Lチカ用にLEDポートのためのグローバル変数を定義
 var ledPort;
-var ledValue=0;
-//タクトスイッチ用にbtnポートのためのグローバル変数を定義  
-var btnPort;
 
 // task.js ライブラリ
 const { spawn, sleep } = task;
@@ -19,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
     yield ledPort.export("out");
 
     //GPIO199(CHIRIMEN CN1-10)をタクトスイッチ用のGPIOポート  
-    btnPort = gpioAccessor.ports.get(199);
+    var btnPort = gpioAccessor.ports.get(199);
     //btnPortを入力として利用する
     yield btnPort.export("in");
 
