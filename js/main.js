@@ -1,8 +1,5 @@
-//Lチカ用にLEDポートとLEDの値のためのグローバル変数を定義
+//Lチカ用にLEDポートのためのグローバル変数を定義
 var ledPort;
-var ledValue=0;
-//タクトスイッチ用にbtnポートのためのグローバル変数を定義  
-var btnPort;
 
 // task.js ライブラリ
 const { spawn, sleep } = task;
@@ -19,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
     yield ledPort.export("out");
 
     //GPIO199(CHIRIMEN CN1-10)をタクトスイッチ用のGPIOポート  
-    btnPort = gpioAccessor.ports.get(199);
+    var btnPort = gpioAccessor.ports.get(199);
     //btnPortを入力として利用する
     yield btnPort.export("in");
 
@@ -60,7 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
       document.querySelector("#distance").textContent = distance;
       
       // 距離センサの値によって画面をスクロールさせる関数
-      scroll(distance);
+      scroll(distance,15,50);
 
       // 次のセンシングまで 1000ms 待つ
       yield sleep(1000);
@@ -85,22 +82,19 @@ function addEventLink(){
   });
 }
 
-function scroll(val){
+function scroll(val,min,max){
   //ドキュメントの高さを取得
   var ch = document.body.scrollHeight;
-  //距離センサの値の扱う範囲を15から50の間とする
-  const minVal = 15;
-  const maxVal = 50;
-  //距離センサの値が50より大きい時、何もしない
-  if(val > maxVal){
+  //値がmaxより大きい時、何もしない
+  if(val > max){
     return;
   }
-  //距離センサが15より小さいときは、minValの値で固定する
-  if(val < minVal){
-    val = minVal;
+  //値がminより小さいときは、minの値で固定する
+  if(val < min){
+    val = min;
   }
   //スクロールする位置を決定する   
-  var sx = ch * (1 - (val - minVal)/(maxVal - minVal));
+  var sx = ch * (1 - (val - min)/(max - min));
   //指定の位置にスクロールさせる    
   $('html,body').animate({scrollTop: sx}, 500, 'swing');
 }
