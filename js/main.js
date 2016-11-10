@@ -41,16 +41,8 @@ document.addEventListener("DOMContentLoaded", () => {
     //ループ
     setInterval( ()=>{
       spawn(function(){
-        // ここからは各 I2C デバイスによって制御方法が異なる
-        // SRF02 では以下のようにして距離を取得
-        yield slave.write8(0x00, 0x00);
-        yield sleep(1);
-        slave.write8(0x00, 0x51);
-        yield sleep(70);
-        const highBit = yield slave.read8(0x02, true);
-        const lowBit = yield slave.read8(0x03, true);
-        // 距離
-        const distance = (highBit << 8) + lowBit;
+        
+        const distance = yield getDistance(port,0x70);
 
         // 確認用に console.log に表示
         console.log(distance);
@@ -78,6 +70,27 @@ function addEventLink(){
         //LEDを消灯させる
         ledPort.write(0);
       },1000);
+    });
+  });
+}
+
+function getDistance(port,addr){
+  return new Promise(function(resolve,reject){
+    spawn(function(){
+      const slave = yield port.open(addr);
+      
+      // ここからは各 I2C デバイスによって制御方法が異なる
+      // SRF02 では以下のようにして距離を取得
+      yield slave.write8(0x00, 0x00);
+      yield sleep(1);
+      slave.write8(0x00, 0x51);
+      yield sleep(70);
+      const highBit = yield slave.read8(0x02, true);
+      const lowBit = yield slave.read8(0x03, true);
+      
+      const distance = (highBit << 8) + lowBit;
+      resolve(distance);
+    
     });
   });
 }
