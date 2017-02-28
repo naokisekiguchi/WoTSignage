@@ -1,3 +1,9 @@
+/*
+Copyright (c) 2016 club-wot team and other contributors
+
+Licensed under the MIT License
+*/
+
 (function(){var ab2json = (dataBuffer) => JSON.parse(String.fromCharCode.apply(null, new Uint16Array(dataBuffer)));
 var json2ab = (jsonData) => {
   var strJson = JSON.stringify(jsonData);
@@ -424,11 +430,6 @@ if (window.Worker && window.WorkerOvserve) {
   var _worker = new Worker(`${current.substr(0, current.lastIndexOf('/'))}/worker.i2c.js`);
 
   // @MEMO gpioとi2cのObserverを分けた意味は「まだ」特にない
-  window.WorkerOvserve.observe('gpio', function (jsonData) {
-    var ab = json2ab(jsonData);
-    _worker.postMessage(ab.buffer, [ab.buffer]);
-  });
-
   window.WorkerOvserve.observe('i2c', function (jsonData) {
     var ab = json2ab(jsonData);
     _worker.postMessage(ab.buffer, [ab.buffer]);

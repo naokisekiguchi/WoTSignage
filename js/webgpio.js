@@ -1,3 +1,9 @@
+/*
+Copyright (c) 2016 club-wot team and other contributors
+
+Licensed under the MIT License
+*/
+
 (function(){var ab2json = (dataBuffer) => JSON.parse(String.fromCharCode.apply(null, new Uint16Array(dataBuffer)));
 var json2ab = (jsonData) => {
   var strJson = JSON.stringify(jsonData);

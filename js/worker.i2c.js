@@ -1,3 +1,9 @@
+/*
+Copyright (c) 2016 club-wot team and other contributors
+
+Licensed under the MIT License
+*/
+
 (function(){/* istanbul ignore next */
 if (!navigator.mozI2c) {
   navigator.mozI2c = new Object();

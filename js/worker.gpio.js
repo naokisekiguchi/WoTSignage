@@ -1,3 +1,9 @@
+/*
+Copyright (c) 2016 club-wot team and other contributors
+
+Licensed under the MIT License
+*/
+
 (function(){
 /**
 * gpio監視イベント
