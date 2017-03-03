@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
     yield btnPort.export("in");
 
     //btnPortの値に変化があった時(タクトスイッチが押された時)の処理を規定
-    btnPort.onchange = function(btnValue){
+    btnPort.onchange = (btnValue) => {
       //タクトスイッチが押し込まれている時(GPIOの値が0の時)の処理 
       if(!btnValue){
         //wikipediaの記事をランダムで表示する
