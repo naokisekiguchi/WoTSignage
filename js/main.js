@@ -147,8 +147,4 @@ function parseWiki(json){
   document.getElementById("contents").innerHTML = html;
   //記事中のリンク(aタグ)をクリックした時のイベントを設定
   addEventLink();
-  //記事中のリンクのリンク先をcontentsのトップに設定
-  Array.from(document.querySelectorAll("a"),  (e) => {
-    e.href = "#contents";
-  });
 }
